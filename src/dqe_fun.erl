@@ -8,7 +8,7 @@
 %%%-------------------------------------------------------------------
 -module(dqe_fun).
 
--export([init/0, reg/1, lookup/3]).
+-export([init/0, reg/1, lookup/2]).
 -export_type([spec/0]).
 -define(TBL, dqe_fun).
 
@@ -51,24 +51,24 @@ reg(Module) ->
                  ok.
 reg(Module, Name, Parameters, ListType, ReturnType) ->
     true = valid_params(Parameters, false),
-    Spec = {{Name, Parameters, ListType, ReturnType}, Module},
+    Spec = {{Name, Parameters, ListType}, ReturnType, Module},
     ets:insert(?TBL, Spec).
 
-lookup(Name, Parameters, ReturnType) ->
-    case lookup(Name, Parameters, none, ReturnType) of
+lookup(Name, Parameters) ->
+    case lookup(Name, Parameters, none) of
         {error, not_found} ->
             case list_type(Parameters) of
                 none ->
                     {error, not_found};
                 {ListType, Params1} ->
-                    lookup(Name, Params1, ListType, ReturnType)
+                    lookup(Name, Params1, ListType)
             end;
         {ok, Element} ->
             {ok, Element}
     end.
 
-lookup(Name, Parameters, ListType, ReturnType) ->
-    case ets:lookup(?TBL, {Name, Parameters, ListType, ReturnType}) of
+lookup(Name, Parameters, ListType) ->
+    case ets:lookup(?TBL, {Name, Parameters, ListType}) of
         [] ->
             {error, not_found};
         [Element] ->
