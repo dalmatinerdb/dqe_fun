@@ -48,7 +48,7 @@ add_pos([{C, _} | R], P, Acc) ->
     add_pos(R, P + 1, [{C, P} | Acc]).
 
 
-start({_Start, _Count}, State) ->
+start(_, State) ->
     {ok, State}.
 
 describe(#state{dqe_fun = Fun, fun_state = State}) ->

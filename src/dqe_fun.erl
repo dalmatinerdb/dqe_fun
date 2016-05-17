@@ -14,7 +14,7 @@
 
 -type return_type() :: histogram | metric.
 -type list_type() :: return_type() | none.
--type type() :: return_type() | integer | float | time.
+-type type() :: return_type() | integer | float.
 -type function_name() :: binary().
 
 -type realized_value() :: binary().
@@ -80,6 +80,10 @@ list_type(Parameters) ->
         [histogram | R] ->
             remove_list(R, histogram);
         [metric | R] ->
+            remove_list(R, metric);
+        [histogram_list | R] ->
+            remove_list(R, histogram);
+        [metric_list | R] ->
             remove_list(R, metric);
         _ ->
             none

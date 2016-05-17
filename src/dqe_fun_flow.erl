@@ -17,7 +17,7 @@ init([Fun, FunState, SubQ]) ->
                 chunk = Chunk,
                 fun_state = FunState}, SubQ}.
 
-start({_Start, _Count}, State) ->
+start(_, State) ->
     {ok, State}.
 
 describe(#state{dqe_fun = Fun, fun_state = State}) ->
