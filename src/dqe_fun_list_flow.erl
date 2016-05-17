@@ -99,6 +99,6 @@ shrink_tree(Fun, FunState, Tree, Count, Acc) ->
                     shrink_tree(Fun, FunState1, Tree1, Count,
                                 <<Acc/binary, Result/binary>>);
                 _ ->
-                    {Tree, Acc}
+                    {FunState, Tree, Acc}
             end
     end.
