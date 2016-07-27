@@ -1,16 +1,11 @@
-{application, dqe_fun,
- [{description, "An OTP application"},
-  {vsn, "0.1.0"},
-  {registered, []},
-  {mod, { dqe_fun_app, []}},
-  {applications,
-   [kernel,
-    stdlib
-   ]},
-  {env,[]},
-  {modules, []},
-
-  {maintainers, []},
-  {licenses, []},
-  {links, []}
- ]}.
+{application,dqe_fun,
+             [{description,"An OTP application"},
+              {vsn,"0.1.3"},
+              {registered,[]},
+              {mod,{dqe_fun_app,[]}},
+              {applications,[kernel,stdlib]},
+              {env,[]},
+              {modules,[]},
+              {maintainers,["Heinz N. Gies"]},
+              {licenses,["MIT"]},
+              {links,[]}]}.

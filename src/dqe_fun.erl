@@ -36,8 +36,9 @@
 -callback run(Parameters::[values()], State :: fun_state()) ->
     {binary(), fun_state()}.
 
--callback resolution(Constants::[integer() | float()],
-                     ResolutionIn::integer()) -> pos_integer().
+-callback resolution(ResolutionIn::integer(), State :: fun_state()) ->
+    {pos_integer(), fun_state()}.
+
 init() ->
     ets:new(?TBL, [set, public, named_table]).
 
