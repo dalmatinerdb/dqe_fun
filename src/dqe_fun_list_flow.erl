@@ -67,8 +67,8 @@ emit(Child, Data,
         {FunState1, Tree2, <<>>} ->
             {ok, State#state{fun_state = FunState1, acc = Tree2,
                              term_for_child = TFC1}};
-        {FunState1, Tree2, Data1} ->
-            {emit, Data1,
+        {FunState1, Tree2, Data2} ->
+            {emit, Data2,
              State#state{fun_state = FunState1, acc = Tree2,
                          term_for_child = TFC1}}
     end.
@@ -94,7 +94,7 @@ shrink_tree(Fun, FunState, Tree, Count, Acc) ->
         _ ->
             case gb_trees:smallest(Tree) of
                 {Term0, Data} when length(Data) =:= Count ->
-                    {Result, FunState1} = Fun:run([E || {_, E} <- Data], FunState),
+                    {Result, FunState1} = Fun:run(Data, FunState),
                     Tree1 = gb_trees:delete(Term0, Tree),
                     shrink_tree(Fun, FunState1, Tree1, Count,
                                 <<Acc/binary, Result/binary>>);
