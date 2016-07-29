@@ -62,7 +62,7 @@ emit(Child, Data,
     Data1 = {Idx, Data},
     TFC1 = dict:update_counter(Child, 1, TFC),
     Term = dict:fetch(Child, TFC1),
-    Tree1 = add_to_tree(Term, Data, Tree),
+    Tree1 = add_to_tree(Term, Data1, Tree),
     case shrink_tree(Fun, FunState, Tree1, Count, <<>>) of
         {FunState1, Tree2, <<>>} ->
             {ok, State#state{fun_state = FunState1, acc = Tree2,
@@ -94,7 +94,7 @@ shrink_tree(Fun, FunState, Tree, Count, Acc) ->
         _ ->
             case gb_trees:smallest(Tree) of
                 {Term0, Data} when length(Data) =:= Count ->
-                    {Result, FunState1} = Fun:run(Data, FunState),
+                    {Result, FunState1} = Fun:run([D || {_, D} <- Data], FunState),
                     Tree1 = gb_trees:delete(Term0, Tree),
                     shrink_tree(Fun, FunState1, Tree1, Count,
                                 <<Acc/binary, Result/binary>>);
