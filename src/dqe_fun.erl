@@ -8,7 +8,7 @@
 %%%-------------------------------------------------------------------
 -module(dqe_fun).
 
--export([init/0, reg/1, lookup/2, list/0]).
+-export([init/0, reg/1, lookup/2, list/0, render/1]).
 -export_type([spec/0]).
 -define(TBL, dqe_fun).
 
@@ -83,6 +83,27 @@ lookup(Name, Parameters, ListType) ->
 
 list() ->
     ets:tab2list(?TBL).
+
+render({{Fun, Sig, List}, Return, _Module}) ->
+    <<Fun/binary, "(",
+      (render_params(Sig, List))/binary,
+      ") -> ",
+      (atom_to_binary(Return, utf8))/binary>>.
+
+render_params([], none) ->
+    <<>>;
+render_params([], List) ->
+    <<(atom_to_binary(List, utf8))/binary, "*">>;
+
+render_params(Sig, none) ->
+    render_sig(Sig);
+render_params(Sig, List) ->
+    <<(render_sig(Sig))/binary, ", ", (render_params([], List))/binary>>.
+
+render_sig([E]) ->
+    atom_to_binary(E, utf8);
+render_sig([E  | R]) ->
+    <<(render_sig([E]))/binary, ", ", (render_sig(R))/binary>>.
 
 list_type(Parameters) ->
     case lists:reverse(Parameters) of
