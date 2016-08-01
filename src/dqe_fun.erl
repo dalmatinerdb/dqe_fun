@@ -8,7 +8,7 @@
 %%%-------------------------------------------------------------------
 -module(dqe_fun).
 
--export([init/0, reg/1, lookup/2]).
+-export([init/0, reg/1, lookup/2, list/0]).
 -export_type([spec/0]).
 -define(TBL, dqe_fun).
 
@@ -38,6 +38,11 @@
 
 -callback resolution(ResolutionIn::integer(), State :: fun_state()) ->
     {pos_integer(), fun_state()}.
+
+-callback help() -> binary().
+
+-optional_callbacks([help/0]).
+
 
 init() ->
     ets:new(?TBL, [set, public, named_table]).
@@ -75,6 +80,9 @@ lookup(Name, Parameters, ListType) ->
         [Element] ->
             {ok, Element}
     end.
+
+list() ->
+    ets:tab2list(?TBL).
 
 list_type(Parameters) ->
     case lists:reverse(Parameters) of
@@ -116,4 +124,3 @@ valid_params([histogram | _R], true) ->
     false;
 valid_params([metric | _R], true) ->
     false.
-
