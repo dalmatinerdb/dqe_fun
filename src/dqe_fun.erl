@@ -25,7 +25,7 @@
 -type values() :: realized_value() | histogram_value().
 
 -callback spec() ->
-     spec().
+    spec() | [spec()].
 
 -callback init(Constants::[integer() | float()]) ->
      fun_state().
@@ -49,8 +49,14 @@ init() ->
 
 -spec reg(Module :: module()) -> boolean().
 reg(Module) ->
-    {Name, Parameters, ListType, ReturnType} = Module:spec(),
-    reg(Module, Name, Parameters, ListType, ReturnType).
+    Specs = case Module:spec() of
+                L when is_list(L) ->
+                    L;
+                E ->
+                    [E]
+            end,
+    [reg(Module, Name, Parameters, ListType, ReturnType)
+     || {Name, Parameters, ListType, ReturnType} <- Specs].
 
 -spec reg(Module :: module(), Name :: binary(), Params :: [type()],
           ListType :: list_type(), ReturnType :: return_type()) ->
