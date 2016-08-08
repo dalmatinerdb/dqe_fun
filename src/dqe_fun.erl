@@ -15,9 +15,9 @@
 
 -define(TBL, dqe_fun).
 
--type return_type() :: histogram | metric | time.
+-type return_type() :: histogram | metric.
 -type list_type() :: return_type() | none.
--type type() :: return_type() | integer | float.
+-type type() :: return_type() | integer | float | time.
 -type function_name() :: binary().
 
 -type realized_value() :: binary().
