@@ -10,9 +10,12 @@
 
 -export([init/0, reg/1, lookup/2, list/0, render/1]).
 -export_type([spec/0]).
+
+-ignore_xref([behaviour_info/1, list/0, lookup/2, reg/1, render/1]).
+
 -define(TBL, dqe_fun).
 
--type return_type() :: histogram | metric.
+-type return_type() :: histogram | metric | time.
 -type list_type() :: return_type() | none.
 -type type() :: return_type() | integer | float.
 -type function_name() :: binary().
@@ -47,7 +50,7 @@
 init() ->
     ets:new(?TBL, [set, public, named_table]).
 
--spec reg(Module :: module()) -> boolean().
+-spec reg(Module :: module()) -> ['true'].
 reg(Module) ->
     Specs = case Module:spec() of
                 L when is_list(L) ->
@@ -59,8 +62,8 @@ reg(Module) ->
      || {Name, Parameters, ListType, ReturnType} <- Specs].
 
 -spec reg(Module :: module(), Name :: binary(), Params :: [type()],
-          ListType :: list_type(), ReturnType :: return_type()) ->
-                 ok.
+          ListType :: list_type(), ReturnType :: return_type()) -> 'true'.
+
 reg(Module, Name, Parameters, ListType, ReturnType) ->
     true = valid_params(Parameters, false),
     Spec = {{Name, Parameters, ListType}, ReturnType, Module},
