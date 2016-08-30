@@ -24,6 +24,12 @@ describe(#state{dqe_fun = Fun, fun_state = State}) ->
     Fun:describe(State).
 
 emit(_Child, Data, State = #state{dqe_fun = Fun, fun_state = FunState,
+                                  chunk = 1})
+  when is_list(Data) ->
+    {Result, FunState1} = Fun:run([Data], FunState),
+    {emit, Result, State#state{fun_state = FunState1}};
+
+emit(_Child, Data, State = #state{dqe_fun = Fun, fun_state = FunState,
                                   chunk = ChunkSize, acc = Acc})
   when byte_size(Acc) + byte_size(Data) >= ChunkSize ->
     Size = ((byte_size(Acc) + byte_size(Data)) div ChunkSize) * ChunkSize,

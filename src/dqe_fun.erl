@@ -21,7 +21,7 @@
 -type function_name() :: binary().
 
 -type realized_value() :: binary().
--type histogram_value() :: binary().
+-type histogram_value() :: [binary()].
 -type fun_state() :: tuple().
 -type spec() :: {function_name(), [type()], list_type(), return_type()}.
 
@@ -37,7 +37,7 @@
     integer().
 
 -callback run(Parameters::[values()], State :: fun_state()) ->
-    {binary(), fun_state()}.
+    {values(), fun_state()}.
 
 -callback resolution(ResolutionIn::integer(), State :: fun_state()) ->
     {pos_integer(), fun_state()}.
