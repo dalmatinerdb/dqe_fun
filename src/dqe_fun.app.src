@@ -1,6 +1,6 @@
 {application,dqe_fun,
              [{description,"An OTP application"},
-              {vsn, git},
+              {vsn,"0.2.0"},
               {registered,[]},
               {mod,{dqe_fun_app,[]}},
               {applications,[kernel,stdlib]},
