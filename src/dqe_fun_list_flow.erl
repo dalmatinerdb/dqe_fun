@@ -19,7 +19,7 @@
 
 -behaviour(dflow).
 
--export([init/1, describe/1, start/2, emit/3, done/2]).
+-export([init/2, describe/1, start/2, emit/3, done/2]).
 
 -record(state, {
           dqe_fun :: atom(),
@@ -30,21 +30,20 @@
           term_for_child = dict:new()
          }).
 
-init([Fun, FunState | SubQs]) ->
-    SubQs1 = [{make_ref(), SubQ} || SubQ <- SubQs],
-    ChildPos = add_pos(SubQs1),
-    Count = length(SubQs1),
+init([Fun, FunState], SubQs) ->
+    ChildPos = add_pos(SubQs),
+    Count = length(SubQs),
     {ok, #state{count = Count,
                 dqe_fun = Fun,
                 child_pos = ChildPos,
-                fun_state = FunState}, SubQs1}.
+                fun_state = FunState}}.
 
 add_pos(E) ->
     add_pos(E, 1, []).
 
 add_pos([], _P, Acc) ->
     dict:from_list(Acc);
-add_pos([{C, _} | R], P, Acc) ->
+add_pos([C | R], P, Acc) ->
     add_pos(R, P + 1, [{C, P} | Acc]).
 
 

@@ -3,7 +3,7 @@
               {vsn,"0.2.0"},
               {registered,[]},
               {mod,{dqe_fun_app,[]}},
-              {applications,[kernel,stdlib]},
+              {applications,[kernel,dflow,stdlib]},
               {env,[]},
               {modules,[]},
               {maintainers,["Heinz N. Gies"]},

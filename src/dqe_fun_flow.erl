@@ -2,7 +2,7 @@
 
 -behaviour(dflow).
 
--export([init/1, describe/1, start/2, emit/3, done/2]).
+-export([init/2, describe/1, start/2, emit/3, done/2]).
 
 -record(state, {
           dqe_fun :: atom(),
@@ -11,11 +11,11 @@
           fun_state :: dqe_fun:fun_state()
          }).
 
-init([Fun, FunState, SubQ]) ->
+init([Fun, FunState], _SubQ) ->
     Chunk = Fun:chunk(FunState),
     {ok, #state{dqe_fun = Fun,
                 chunk = Chunk,
-                fun_state = FunState}, SubQ}.
+                fun_state = FunState}}.
 
 start(_, State = #state{dqe_fun = Fun, chunk = Chunk}) ->
     dflow_span:tag(function, Fun),
