@@ -1,12 +1,12 @@
 {"1.1.0",
-[{<<"dflow">>,{pkg,<<"dflow">>,<<"0.2.1">>},0},
+[{<<"dflow">>,{pkg,<<"dflow">>,<<"0.3.0">>},0},
  {<<"dynamic_compile">>,{pkg,<<"dynamic_compile">>,<<"1.0.0">>},2},
  {<<"ibrowse">>,{pkg,<<"ibrowse">>,<<"4.4.0">>},2},
- {<<"otters">>,{pkg,<<"otters">>,<<"0.2.4">>},1}]}.
+ {<<"otters">>,{pkg,<<"otters">>,<<"0.2.8">>},1}]}.
 [
 {pkg_hash,[
- {<<"dflow">>, <<"86B9F3A9AE8B6AA11A1AB65A7E24C1509A8562E6926F98866F1A03FE2BDC3015">>},
+ {<<"dflow">>, <<"DA0EB8F14B01ED894BD32F1CEE3B13646DFC30FA60D59B408BFCD0653E0984D7">>},
  {<<"dynamic_compile">>, <<"8171B2CB4953EA3ED2EF63F5B26ABF677ACD0CA32210C2A08A7A8406A743F76B">>},
  {<<"ibrowse">>, <<"2D923325EFE0D2CB09B9C6A047B2835A5EDA69D8A47ED6FF8BC03628B764E991">>},
- {<<"otters">>, <<"ACFC0DB3A8D4D1EE1C3FD9CC6F7526D9A64AE50250194E602F7925D18E8302DC">>}]}
+ {<<"otters">>, <<"4D28D810E3311E9BC845FBA20EBBE88CFF4AC26320B56A277603DDE134F24DC1">>}]}
 ].
